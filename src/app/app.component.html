@@ -1,20 +1,4 @@
-<mat-toolbar color="primary">
-  <a mat-button routerLink="home">myApp</a>
-  <div class="spacer"></div>
-
-  <a mat-button routerLink="shopping-cart">Shopping cart</a>
-
-  <button mat-button [matMenuTriggerFor]="appMenu">Username</button>
-  <mat-menu #appMenu="matMenu">
-    <button mat-menu-item>My Orders</button>
-    <button mat-menu-item>Manage Orders</button>
-    <button mat-menu-item>Manage Products</button>
-    <button mat-menu-item>Log Out</button>
-  </mat-menu>
-
-</mat-toolbar>
-
-
+<mat-navbar></mat-navbar>
 
 <div class="container-fluid">
   <router-outlet></router-outlet>

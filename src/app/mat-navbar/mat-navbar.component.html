@@ -1,1 +1,15 @@
-<p>mat-navbar works!</p>
+<mat-toolbar color="primary">
+  <a mat-button routerLink="/">myApp</a>
+  <div class="spacer"></div>
+
+  <a mat-button routerLink="shopping-cart">Shopping cart</a>
+
+  <button mat-button [matMenuTriggerFor]="appMenu">Username<mat-icon>expand_more</mat-icon></button>
+  <mat-menu #appMenu="matMenu">
+    <a mat-menu-item routerLink="/my/orders">My Orders</a>
+    <a mat-menu-item routerLink="/admin/orders">Manage Orders</a>
+    <a mat-menu-item routerLink="/admin/products">Manage Products</a>
+    <a mat-menu-item>Log Out</a>
+  </mat-menu>
+
+</mat-toolbar>
