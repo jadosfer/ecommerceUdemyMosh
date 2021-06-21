@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth-guard.service';
 import { MatNavbarComponent } from './mat-navbar/mat-navbar.component';
 
 import { NgModule } from '@angular/core';
@@ -8,7 +9,6 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './Material/Material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
-import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
@@ -19,7 +19,7 @@ import { LoginComponent } from './login/login.component';
 
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './auth.service';
 
 
@@ -30,7 +30,6 @@ import { AuthService } from './auth.service';
   declarations: [
     AppComponent,
     ShoppingCartComponent,
-    HomeComponent,
     MatNavbarComponent,
     ProductsComponent,
     CheckOutComponent,
@@ -49,7 +48,7 @@ import { AuthService } from './auth.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule
   ],
-  providers: [AngularFireAuth, AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
