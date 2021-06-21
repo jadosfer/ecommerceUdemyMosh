@@ -14,7 +14,6 @@ export class LoginComponent {
 
 
   login() {
-    this.authService.googleAuth();
-
+    this.authService.login();
   }
 }
