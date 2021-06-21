@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Injectable } from '@angular/core';
 import { AuthService } from '../auth.service';
 
 
@@ -10,10 +9,10 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent {
 
-  constructor(private authService: AuthService) {}
+  constructor(private auth: AuthService) {}
 
 
   login() {
-    this.authService.login();
+    this.auth.login();
   }
 }
