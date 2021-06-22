@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { MatNavbarComponent } from './mat-navbar/mat-navbar.component';
 import { AppUser } from './models/app-user';
 import { UserService } from './user.service';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/of';
 
 
 @Injectable()
@@ -13,7 +15,7 @@ export class AuthService {
 
   user$: Observable<firebase.User | null>;
 
-  constructor(public afAuth: AngularFireAuth, private route: ActivatedRoute, private router: Router) {
+  constructor(public afAuth: AngularFireAuth, private route: ActivatedRoute, private router: Router, private userService: UserService) {
       this.user$ = afAuth.authState;
   }
 
@@ -26,14 +28,21 @@ export class AuthService {
       if (returnUrl) {
         this.router.navigateByUrl(returnUrl);
       }
-    }
-
-    );
+    });
   }
 
   logout() {
     this.afAuth.signOut()
     this.router.navigateByUrl('/');
+  }
+
+  get appUser$() : Observable<AppUser> {
+    return this.user$
+    .switchMap(user => {
+      if (user) return this.userService.get(user.uid);
+
+      return Observable.of(null);
+    })
   }
 
 }

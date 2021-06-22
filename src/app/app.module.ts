@@ -1,3 +1,4 @@
+import { AdminAuthGuard as AdminAuthGuard } from './admin-auth-guard.service';
 import { UserService } from './user.service';
 import { AuthGuard } from './auth-guard.service';
 import { MatNavbarComponent } from './mat-navbar/mat-navbar.component';
@@ -54,7 +55,7 @@ import { FormsModule } from '@angular/forms';
     AngularFireDatabaseModule,
 
   ],
-  providers: [AuthService, AuthGuard, UserService],
+  providers: [AuthService, AuthGuard, UserService, AdminAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
