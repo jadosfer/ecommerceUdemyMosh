@@ -5,6 +5,7 @@ import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { MatNavbarComponent } from './mat-navbar/mat-navbar.component';
 import { AppUser } from './models/app-user';
+import { UserService } from './user.service';
 
 
 @Injectable()

@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { AuthGuard } from './auth-guard.service';
 import { MatNavbarComponent } from './mat-navbar/mat-navbar.component';
 
@@ -20,7 +21,9 @@ import { LoginComponent } from './login/login.component';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AuthService } from './auth.service';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -43,12 +46,15 @@ import { AuthService } from './auth.service';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
