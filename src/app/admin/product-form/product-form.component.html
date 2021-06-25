@@ -3,15 +3,19 @@
     <p>
       <mat-form-field appearance="legacy">
         <mat-label>Title</mat-label>
-        <input matInput ngModel name="title" placeholder="Placeholder">
-        <mat-hint>Title</mat-hint>
+        <input #title="ngModel" matInput ngModel name="title" placeholder="write here" required>
+
+        <mat-hint>Required Field</mat-hint>
+        <div class="alert alert-danger" *ngIf="title.touched && title.invalid">Title is required</div>
       </mat-form-field>
+
     </p>
 
     <p>
       <mat-form-field appearance="legacy">
         <mat-label>$</mat-label>
-        <input matInput ngModel name="price" placeholder="Price">
+        <input #price="ngModel" matInput ngModel name="price" placeholder="write here" required>
+        <div class="alert alert-danger" *ngIf="price.touched && price.invalid">Price is required</div>
         <mat-hint>Price</mat-hint>
       </mat-form-field>
     </p>
@@ -19,20 +23,23 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Categories</mat-label>
-        <mat-select [(ngModel)]="selectedValue" name="category">
+        <mat-select #category="ngModel" ngModel name="category" required>
           <mat-option *ngFor="let c of categories$ | async" [value]="c.name">
             {{c.name}}
           </mat-option>
         </mat-select>
+        <div class="alert alert-danger" *ngIf="category.touched && category.invalid">Category is required</div>
       </mat-form-field>
 
     <p>
       <mat-form-field appearance="legacy">
         <mat-label>Image URL</mat-label>
-        <input matInput ngModel name="imageUrl" placeholder="Placeholder">
+        <input #imageUrl="ngModel" matInput ngModel name="imageUrl" placeholder="imageUrl" required>
+        <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">Image URL is required</div>
         <mat-hint>Image URL</mat-hint>
       </mat-form-field>
     </p>
+
     <button mat-raised-button type="submit" color="accent" >Save</button>
   </form>
 </div>

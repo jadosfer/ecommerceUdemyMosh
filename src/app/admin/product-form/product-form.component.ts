@@ -11,7 +11,6 @@ import { ProductService } from 'src/app/product.service';
 })
 export class ProductFormComponent implements OnInit {
   categories$: Observable<any>;
-  selectedValue: string;
 
   constructor(private categoryService: CategoryService, private productService: ProductService) {
 
