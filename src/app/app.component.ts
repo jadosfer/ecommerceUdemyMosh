@@ -20,12 +20,6 @@ export class AppComponent {
         this.userService.save(user);
       }
     });
-
-    this.items = db.list('items').valueChanges();
   }
 
-  onSubmit() {
-    this.db.list('items').push({ content: this.itemValue});
-    this.itemValue = '';
-  }
 }

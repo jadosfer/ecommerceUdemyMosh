@@ -11,7 +11,7 @@
   <button mat-button *ngIf="appUser; else anonymousUser" [matMenuTriggerFor]="appMenu">{{appUser.name}}<mat-icon>expand_more</mat-icon></button>
   <mat-menu #appMenu="matMenu" >
     <a mat-menu-item routerLink="/my/orders">My Orders</a>
-    <ng-container *ngIf="appUser.isAdmin">
+    <ng-container *ngIf="appUser!=undefined && appUser.isAdmin">
       <a mat-menu-item routerLink="/admin/orders">Manage Orders</a>
       <a mat-menu-item routerLink="/admin/products">Manage Products</a>
     </ng-container>

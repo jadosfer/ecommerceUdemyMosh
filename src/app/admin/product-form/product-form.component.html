@@ -1,0 +1,41 @@
+<div class="container">
+  <form #f="ngForm" (ngSubmit)="save(f.value)">
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Title</mat-label>
+        <input matInput ngModel name="title" placeholder="Placeholder">
+        <mat-hint>Title</mat-hint>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>$</mat-label>
+        <input matInput ngModel name="price" placeholder="Price">
+        <mat-hint>Price</mat-hint>
+      </mat-form-field>
+    </p>
+
+
+      <mat-form-field appearance="fill">
+        <mat-label>Categories</mat-label>
+        <mat-select [(ngModel)]="selectedValue" name="category">
+          <mat-option *ngFor="let c of categories$ | async" [value]="c.name">
+            {{c.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <p>
+      <mat-form-field appearance="legacy">
+        <mat-label>Image URL</mat-label>
+        <input matInput ngModel name="imageUrl" placeholder="Placeholder">
+        <mat-hint>Image URL</mat-hint>
+      </mat-form-field>
+    </p>
+    <button mat-raised-button type="submit" color="accent" >Save</button>
+  </form>
+</div>
+
+
+
