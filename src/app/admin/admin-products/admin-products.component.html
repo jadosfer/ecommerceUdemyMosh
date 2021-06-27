@@ -3,7 +3,7 @@
 </p>
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="products$">
+  <table mat-table [dataSource]="dataSource">
 
         <!-- Title Column -->
     <ng-container matColumnDef="title">
@@ -28,6 +28,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 </div>
 
