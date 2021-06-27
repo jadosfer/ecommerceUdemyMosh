@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { AppUser } from '../models/app-user';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'mat-navbar',

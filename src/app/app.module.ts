@@ -1,7 +1,4 @@
-import { CategoryService } from './category.service';
 import { AdminAuthGuard as AdminAuthGuard } from './admin-auth-guard.service';
-import { UserService } from './user.service';
-import { AuthGuard } from './auth-guard.service';
 import { MatNavbarComponent } from './mat-navbar/mat-navbar.component';
 
 import { NgModule } from '@angular/core';
@@ -24,16 +21,15 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
-import { ProductService } from './product.service';
 import { CustomFormsModule } from 'ng2-validation';
 import { FlexLayoutModule  } from '@angular/flex-layout';
-
-
-
-
+import { CategoryService } from './services/category.service';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './services/auth-guard.service';
+import { UserService } from './services/user.service';
+import { ProductService } from './services/product.service';
 
 
 @NgModule({
@@ -63,7 +59,7 @@ import { FlexLayoutModule  } from '@angular/flex-layout';
     AngularFireDatabaseModule,
     FlexLayoutModule
   ],
-  providers: [AuthService, AuthGuard, UserService, AdminAuthGuard, CategoryService, ProductService],
+  providers: [AuthGuard, UserService, AdminAuthGuard, CategoryService, ProductService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,11 +3,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
-import { MatNavbarComponent } from './mat-navbar/mat-navbar.component';
-import { AppUser } from './models/app-user';
 import { UserService } from './user.service';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
+import { AppUser } from '../models/app-user';
 
 
 @Injectable()

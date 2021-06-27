@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { AuthService } from './auth.service';
-import { UserService } from './user.service';
 import { Observable } from 'rxjs';
+import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',

@@ -10,8 +10,8 @@ import { ProductsComponent } from './products/products.component';
 import { LoginComponent } from './login/login.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
-import { AuthGuard } from './auth-guard.service';
 import { AdminAuthGuard } from './admin-auth-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
   //{ path: "", redirectTo: "home", pathMatch: "full" },
