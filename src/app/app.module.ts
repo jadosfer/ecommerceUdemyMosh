@@ -28,6 +28,9 @@ import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { ProductService } from './product.service';
+import { CustomFormsModule } from 'ng2-validation';
+import { FlexLayoutModule  } from '@angular/flex-layout';
+
 
 
 
@@ -52,12 +55,13 @@ import { ProductService } from './product.service';
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
+    CustomFormsModule,
     AppRoutingModule,
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-
+    FlexLayoutModule
   ],
   providers: [AuthService, AuthGuard, UserService, AdminAuthGuard, CategoryService, ProductService],
   bootstrap: [AppComponent]

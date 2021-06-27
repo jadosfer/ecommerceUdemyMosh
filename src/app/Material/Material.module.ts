@@ -6,6 +6,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatCardModule} from '@angular/material/card';
 
 
 const MaterialsComponents = [
@@ -16,7 +17,8 @@ const MaterialsComponents = [
   MatMenuModule,
   MatFormFieldModule,
   MatInputModule,
-  MatSelectModule
+  MatSelectModule,
+  MatCardModule
 ]
 @NgModule({
   imports: [

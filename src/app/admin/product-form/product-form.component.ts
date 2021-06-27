@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { ProductService } from 'src/app/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-form',
@@ -12,7 +13,11 @@ import { ProductService } from 'src/app/product.service';
 export class ProductFormComponent implements OnInit {
   categories$: Observable<any>;
 
-  constructor(private categoryService: CategoryService, private productService: ProductService) {
+  constructor(
+
+    private router: Router,
+    private categoryService: CategoryService,
+    private productService: ProductService) {
 
     this.categories$ = categoryService.getCategories();
 
@@ -20,6 +25,7 @@ export class ProductFormComponent implements OnInit {
 
   save(product: any) {
     this.productService.create(product);
+    this.router.navigate(['/admin/products']);
   }
 
   ngOnInit(): void {
