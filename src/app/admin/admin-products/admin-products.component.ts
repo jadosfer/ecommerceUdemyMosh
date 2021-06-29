@@ -3,8 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductService } from 'src/app/services/product.service';
 import {MatPaginator} from '@angular/material/paginator';
-import { Observable } from 'rxjs';
-import { MatSort } from '@angular/material/sort';
+
 
 
 @Component({

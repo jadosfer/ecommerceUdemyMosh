@@ -4,7 +4,7 @@
       <p>
         <mat-form-field appearance="legacy">
           <mat-label>Title</mat-label>
-          <input #title="ngModel" matInput ngModel name="title" placeholder="" required>
+          <input #title="ngModel" matInput [(ngModel)]="product.title" name="title" placeholder="" required>
 
           <mat-hint>Required Field</mat-hint>
           <div class="alert alert-danger" *ngIf="title.touched && title.invalid">Title is required</div>
@@ -15,7 +15,7 @@
       <p>
         <mat-form-field appearance="legacy">
           <mat-label>$</mat-label>
-          <input #price="ngModel" matInput ngModel name="price" placeholder="" required [min]="0">
+          <input #price="ngModel" matInput [(ngModel)]="product.price" name="price" placeholder="" required [min]="0">
           <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
             <div *ngIf="price.errors?.required">Price is required</div>
             <div *ngIf="price.errors?.min">Price should be 0 or higher</div>
@@ -29,7 +29,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Categories</mat-label>
-          <mat-select #category="ngModel" ngModel name="category" required>
+          <mat-select #category="ngModel" [(ngModel)]="product.category" name="category" required>
             <mat-option *ngFor="let c of categories$ | async" [value]="c.name">
               {{c.name}}
             </mat-option>
@@ -40,7 +40,7 @@
       <p>
         <mat-form-field appearance="legacy">
           <mat-label>Image URL</mat-label>
-          <input #imageUrl="ngModel" matInput ngModel name="imageUrl" required url>
+          <input #imageUrl="ngModel" matInput [(ngModel)]="product.imageUrl" name="imageUrl" required url>
           <mat-hint>Image URL</mat-hint>
           <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
             <div *ngIf="imageUrl.errors?.required">Image URL is required</div>
@@ -53,10 +53,10 @@
     </form>
   </div>
   <mat-card class="example-card" fxFlex="40%;" fxFlex.xs="80%">
-    <img mat-card-image [src]="imageUrl.value">
+    <img mat-card-image [src]="product.imageUrl">
     <mat-card-footer>
-      <mat-card-title>{{title.value}}</mat-card-title>
-      <mat-card-subtitle><b>{{price.value | currency:'$AR':true}}</b></mat-card-subtitle>
+      <mat-card-title>{{product.title}}</mat-card-title>
+      <mat-card-subtitle><b>{{product.price | currency:'$AR':true}}</b></mat-card-subtitle>
       <mat-card-content>
         <p><b>{{category.value}}</b></p>
       </mat-card-content>
