@@ -53,7 +53,7 @@
       <button (click)="delete()" mat-raised-button type="button" color="warn">Delete</button>
     </form>
   </div>
-  <mat-card class="example-card" fxFlex="40%;" fxFlex.xs="80%">
+  <mat-card *ngIf="product.title" class="example-card" fxFlex="40%;" fxFlex.xs="80%">
     <img mat-card-image [src]="product.imageUrl">
     <mat-card-footer>
       <mat-card-title>{{product.title}}</mat-card-title>
