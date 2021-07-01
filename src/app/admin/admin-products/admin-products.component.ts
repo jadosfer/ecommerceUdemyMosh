@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ProductService } from 'src/app/services/product.service';
 import {MatPaginator} from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
+import {Sort} from '@angular/material/sort';
 
 
 
@@ -17,6 +18,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['title', 'price', 'edit'];
   dataSource: any;
   products:any[];
+  sortedData:any[];
   filteredProducts:any[];
   subscription: Subscription;
 
@@ -26,11 +28,11 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.productService.getAll().subscribe(products => {
-      this.filteredProducts = this.products = products;
-      this.dataSource = new MatTableDataSource<any>(this.filteredProducts);
-      this.dataSource.paginator = this.paginator;
-    });
+     this.subscription = this.productService.getAll().subscribe(products => {
+       this.filteredProducts = this.products = products;
+       this.dataSource = new MatTableDataSource<any>(this.filteredProducts);
+       this.dataSource.paginator = this.paginator;
+     });
   }
 
   filter(query: string) {
@@ -39,11 +41,34 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       this.products;
     this.dataSource = new MatTableDataSource<any>(this.filteredProducts);
     this.dataSource.paginator = this.paginator;
+
+  }
+
+  sortData(sort: Sort) {
+    const data = this.filteredProducts.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'title': return compare(a.payload.val().title, b.payload.val().title, isAsc);
+        case 'price': return compare(a.payload.val().price, b.payload.val().price, isAsc);
+        default: return 0;
+      }
+    });
+    this.dataSource = new MatTableDataSource<any>(this.sortedData);
+    this.dataSource.paginator = this.paginator;
   }
 
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+  //   this.subscription.unsubscribe();
   }
 
+}
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

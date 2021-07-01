@@ -32,11 +32,9 @@ export class ProductFormComponent implements OnInit {
   save(product: any) {
     if (this.id) {
       this.productService.update(this.id, product);
-      console.log("actualiza")
     }
     else {
       this.productService.create(product);
-      console.log("crea")
     }
     this.router.navigate(['/admin/products']);
   }

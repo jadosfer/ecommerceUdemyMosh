@@ -2,7 +2,7 @@ import { NumberSymbol } from "@angular/common";
 
 export interface Product {
   title: string;
-  price: NumberSymbol;
+  price: number;
   category: string;
   imageUrl: string;
 }

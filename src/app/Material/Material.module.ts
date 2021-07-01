@@ -9,6 +9,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+
 
 
 
@@ -23,7 +25,9 @@ const MaterialsComponents = [
   MatSelectModule,
   MatCardModule,
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSortModule
+
 ]
 @NgModule({
   imports: [
