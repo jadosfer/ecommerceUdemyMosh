@@ -30,8 +30,8 @@
         <mat-form-field appearance="fill">
           <mat-label>Categories</mat-label>
           <mat-select #category="ngModel" [(ngModel)]="product.category" name="category" required>
-            <mat-option *ngFor="let c of categories$ | async" [value]="c.name">
-              {{c.name}}
+            <mat-option *ngFor="let c of categories$ | async" [value]="c.key">
+              {{c.key}}
             </mat-option>
           </mat-select>
           <div class="alert alert-danger" *ngIf="category.touched && category.invalid">Category is required</div>
@@ -57,7 +57,7 @@
     <img mat-card-image [src]="product.imageUrl">
     <mat-card-footer>
       <mat-card-title>{{product.title}}</mat-card-title>
-      <mat-card-subtitle><b>{{product.price | currency:'$AR ':true}}</b></mat-card-subtitle>
+      <mat-card-subtitle><b>{{product.price | currency:"ARS":"symbol"}}</b></mat-card-subtitle>
       <mat-card-content>
         <p><b>{{category.value}}</b></p>
       </mat-card-content>

@@ -27,7 +27,7 @@
       <!-- Price Column -->
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="price"><h2> Price </h2></th>
-        <td mat-cell *matCellDef="let p"> {{p.payload.val().price | currency:'$AR ':true}} &nbsp;&nbsp;</td>
+        <td mat-cell *matCellDef="let p"> {{p.payload.val().price | currency:"ARS":"symbol"}} &nbsp;&nbsp;</td>
       </ng-container>
 
         <!-- Edit Column -->
