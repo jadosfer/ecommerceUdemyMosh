@@ -1,0 +1,7 @@
+<mat-list>
+  <!--  <div mat-subheader><b>Categories</b></div> -->
+  <a mat-raised-button routerLink="/" routerLinkActive="mat-primary">All Categories</a>
+  <mat-list-item *ngFor="let c of categories$ | async">
+    <a mat-raised-button routerLink="/" [queryParams]="{category: c.key}" color="basic" routerLinkActive="mat-accent">{{c.key}}</a>
+  </mat-list-item>
+</mat-list>

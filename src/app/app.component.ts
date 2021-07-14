@@ -28,5 +28,4 @@ export class AppComponent {
       router.navigateByUrl(returnUrl);
     });
   }
-
 }

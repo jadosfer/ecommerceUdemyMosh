@@ -1,33 +1,18 @@
-<mat-grid-list cols="4" rowHeight="1:14.3">
-  <mat-grid-tile [colspan]=1>
-    <mat-list>
-      <div mat-subheader><b>Categories</b></div>
-      <mat-list-item *ngFor="let c of categories$ | async">
-        <a mat-raised-button routerLink="/" [queryParams]="{category: c.key}" color="basic" routerLinkActive="mat-accent">{{c.key}}</a>
-      </mat-list-item>
-    </mat-list>
-  </mat-grid-tile>
+<div class="container">
+  <mat-grid-list cols="4" rowHeight="1:14.3">
+    <mat-grid-tile [colspan]=1>
+      <product-filter></product-filter>
+    </mat-grid-tile>
 
-  <mat-grid-tile [colspan]=3>
-    <div class='internalMatGrid' >
-    <mat-grid-list cols="3" rowHeight="1:1.2">
-      <mat-grid-tile *ngFor="let product of filteredProducts">
-        <mat-card class="example-card" fxFlex="80%;" fxFlex.xs="80%">
-          <img mat-card-image [src]="product.payload.val().imageUrl">
-          <mat-card-footer>
-            <mat-card-title>{{product.payload.val().title}}</mat-card-title>
-            <mat-card-subtitle><b>{{product.payload.val().price | currency:"ARS":"symbol"}}</b></mat-card-subtitle>
-            <mat-card-content>
-              <p><b>{{product.payload.val().category}}</b></p>
-              <button mat-raised-button href="#" color="primary">Add to Cart</button>
+    <mat-grid-tile [colspan]=3 >
+      <div class='internalMatGrid' >
+      <mat-grid-list cols="3" rowHeight="1:1.2">
+        <mat-grid-tile *ngFor="let product of filteredProducts">
+          <product-card [product]="product"></product-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    </mat-grid-tile>
 
-
-            </mat-card-content>
-          </mat-card-footer>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
-  </mat-grid-tile>
-
-</mat-grid-list>
+  </mat-grid-list>
+</div>

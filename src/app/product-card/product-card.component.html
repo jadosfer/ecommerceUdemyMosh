@@ -1,0 +1,16 @@
+<mat-card *ngIf="product.payload.val().title" class="example-card" fxFlex="80%;" fxFlex.xs="80%">
+  <img mat-card-image [src]="product.payload.val().imageUrl" *ngIf="product.payload.val().imageUrl" alt="{{product.payload.val().title}}">
+  <mat-card-footer>
+    <mat-card-title>{{product.payload.val().title}}</mat-card-title>
+    <mat-card-subtitle><b>{{product.payload.val().price | currency:"ARS":"symbol"}}</b></mat-card-subtitle>
+    <mat-card-content>
+      <p><b>{{product.payload.val().category}}</b></p>
+
+    </mat-card-content>
+    <button class="card-btn" *ngIf="showActions" mat-raised-button href="#" color="primary">Add to Cart</button>
+  </mat-card-footer>
+</mat-card>
+
+
+
+
