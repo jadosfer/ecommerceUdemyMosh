@@ -20,12 +20,11 @@ export class ProductCardComponent {
     this.cartService.addToCart(this.product);
   }
 
-  removeFromCart() {
-    this.cartService.removeFromCart(this.product);
+  updateItemQuantity(product: any, change: number) {
+    this.cartService.updateItemQuantity(product, change);
   }
 
   getQuantity() {
-    if (!this.shoppingCart) return 0;
     let cart = this.cartService.getCart();
     let result = 0;
     if (cart) {
