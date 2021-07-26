@@ -1,13 +1,29 @@
-<mat-card *ngIf="product.payload.val().title" class="example-card" fxFlex="80%;" fxFlex.xs="80%">
+<mat-card *ngIf="product.payload.val().title" class="card" fxFlex="80%;" fxFlex.xs="80%">
   <img mat-card-image [src]="product.payload.val().imageUrl" *ngIf="product.payload.val().imageUrl" alt="{{product.payload.val().title}}">
-  <mat-card-footer>
+  <mat-card-footer *ngIf="showActions">
     <mat-card-title>{{product.payload.val().title}}</mat-card-title>
     <mat-card-subtitle><b>{{product.payload.val().price | currency:"ARS":"symbol"}}</b></mat-card-subtitle>
     <mat-card-content>
       <p><b>{{product.payload.val().category}}</b></p>
 
     </mat-card-content>
-    <button class="card-btn" *ngIf="showActions" mat-raised-button href="#" color="primary">Add to Cart</button>
+    <button *ngIf="getQuantity() === 0; else updateQuantity" class="card-btn" (click)="addToCart()" mat-raised-button color="basic">Add to Cart</button>
+    <ng-template #updateQuantity>
+
+      <mat-grid-list cols="3" rowHeight="1:0.5">
+        <mat-grid-tile [colspan]=1>
+          <button *ngIf="getQuantity() !== 0" class="left-btn" (click)="removeFromCart()" mat-raised-button color="basic">-</button>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]=1>
+          {{getQuantity()}} in cart
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]=1>
+          <button *ngIf="getQuantity() !== 0" class="right-btn" (click)="addToCart()" mat-raised-button color="basic">+</button>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+    </ng-template>
+
   </mat-card-footer>
 </mat-card>
 

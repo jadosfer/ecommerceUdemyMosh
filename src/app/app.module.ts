@@ -32,6 +32,8 @@ import { UserService } from './services/user.service';
 import { ProductService } from './services/product.service';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ShoppingCartService } from './services/shopping-cart.service';
+
 
 
 @NgModule({
@@ -50,6 +52,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
     ProductFilterComponent,
     ProductCardComponent
 
+
   ],
   imports: [
     BrowserAnimationsModule,
@@ -63,7 +66,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     AngularFireDatabaseModule,
     FlexLayoutModule
   ],
-  providers: [AuthGuard, UserService, AdminAuthGuard, CategoryService, ProductService, AuthService],
+  providers: [AuthGuard, UserService, AdminAuthGuard, CategoryService,
+    ProductService, AuthService, ShoppingCartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

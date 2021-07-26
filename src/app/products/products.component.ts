@@ -1,3 +1,5 @@
+import { ShoppingCartService } from './../services/shopping-cart.service';
+import { ShoppingCartComponent } from './../shopping-cart/shopping-cart.component';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -15,10 +17,15 @@ export class ProductsComponent implements OnInit {
   products:any[];
   filteredProducts:any[];
   subscription: Subscription;
+  cart: any;
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute ) {
+    private route: ActivatedRoute,
+    public shoppingCartService: ShoppingCartService
+
+  ) {
+    this.cart = this.shoppingCartService.getCart();
     this.filteredProducts = [];
 
     this.subscription = this.productService.getAll().subscribe(products => {
@@ -30,18 +37,15 @@ export class ProductsComponent implements OnInit {
           this.products.filter(p =>
             p.payload.val().category == this.category) :
           this.products;
-          console.log(this.filteredProducts);
         }
       });
     });
 
-
-
-
-
-
    }
 
   ngOnInit() {
+    //this.cart = (await this.shoppingCartService.getCart()).valueChanges();
+    //this.cart = this.shoppingCartService.getCart();
+    console.log("OnInit")
   }
 }

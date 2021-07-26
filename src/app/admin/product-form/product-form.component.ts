@@ -8,8 +8,7 @@ import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-product-form',
-  templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.scss']
+  templateUrl: './product-form.component.html'
 })
 export class ProductFormComponent implements OnInit {
   categories$: Observable<any>;
@@ -25,7 +24,7 @@ export class ProductFormComponent implements OnInit {
     this.categories$ = categoryService.getAll();
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) this.productService.get(this.id).take(1).subscribe(p => {
-      this.product = p;
+      this.product = p.payload.val();
     });
    }
 
