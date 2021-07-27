@@ -10,7 +10,7 @@ import { ProductService } from '../services/product.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
 
   products$:any;
   category: string | null;
@@ -22,10 +22,10 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    public shoppingCartService: ShoppingCartService
+    public cartService: ShoppingCartService
 
   ) {
-    this.cart = this.shoppingCartService.getCart();
+    this.cart = this.cartService.getCart();
     this.filteredProducts = [];
 
     this.subscription = this.productService.getAll().subscribe(products => {
@@ -43,9 +43,4 @@ export class ProductsComponent implements OnInit {
 
    }
 
-  ngOnInit() {
-    //this.cart = (await this.shoppingCartService.getCart()).valueChanges();
-    //this.cart = this.shoppingCartService.getCart();
-    console.log("OnInit")
-  }
 }

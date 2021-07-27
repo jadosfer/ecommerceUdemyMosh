@@ -5,6 +5,7 @@
     <a mat-button routerLink="/login">Login</a>
   </ng-template>
   <a mat-button routerLink="/shopping-cart">Shopping cart</a>
+  <mat-chip class="navbar-chip" *ngIf="getTotalItems() !== 0" color="accent" selected>&nbsp;&nbsp;&nbsp;{{getTotalItems()}}&nbsp;&nbsp;&nbsp;</mat-chip>
 
   <a mat-menu-item></a>
 

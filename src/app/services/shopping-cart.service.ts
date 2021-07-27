@@ -1,9 +1,9 @@
-import { stringify } from '@angular/compiler/src/util';
+import { ShoppingCartItem } from './../models/shopping-cart-item';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import 'rxjs/add/operator/take';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { Product } from '../models/product';
+import { ShoppingCart } from '../models/shopping-cart';
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +24,12 @@ export class ShoppingCartService {
   }
 
   public getCart() {
-    // let cartId = await this.getOrCreateCartId();
-    // return this.db.object('shopping-carts/' + cartId)
     let cartId = localStorage.getItem('cartId');
     if (cartId) {
       let cart = localStorage.getItem(cartId);
       if (cart) {
         return JSON.parse(cart);
+
       }
     }
     return null;
@@ -50,85 +49,62 @@ export class ShoppingCartService {
     return cartId;
   }
 
-
-
-  private getItem(cartId: string, productId: string) {
-    return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
-  }
-
   async updateItemQuantity(product:any, change: number){
     let cartId = await this.getOrCreateCartId();
     this.productId = product.key;
+    this.cart = {items:[], shoppingCartItemCount: 0};
+    console.log(this.cart);
 
     let cart = localStorage.getItem(cartId || "");
     this.cart = cart;
 
     if (cart) {
       let cartObject = JSON.parse(cart);
-
       let index=0;
-      cartObject.forEach((item: any) => {
+      if (cartObject.items) {
 
-        if (item.productId == this.productId) {
-          cartObject[index].quantity += change;
-          localStorage.setItem(cartId || "", JSON.stringify(cartObject));
-          return
-        }
+        cartObject.items.forEach((item: any) => {
 
-        index += 1;
-      });
-    }
-  }
+          if (item.productId == this.productId) {
+            cartObject.items[index].quantity += change;
+            cartObject.shoppingCartItemCount += change;
 
-  async addToCart(product: any) {
-    let cartId = await this.getOrCreateCartId();
-    this.productId = product.key;
-    this.cart = null;
-
-    let cart = localStorage.getItem(cartId || "");
-    this.cart = cart;
-
-    if (cart) {
-      let cartObject = JSON.parse(cart);
-
-      let index=0;
-      cartObject.forEach((item: any) => {
-
-        if (item.productId == this.productId) {
-          cartObject[index].quantity += 1;
-          localStorage.setItem(cartId || "error", JSON.stringify(cartObject));
-          return
-        }
-
-        else if (index == (cartObject.length - 1)) {
-          let shoppItem =
-          {
-          "productId":[this.productId],
-          "quantity": 1
+            localStorage.setItem(cartId || "", JSON.stringify(cartObject));
+            return
           }
-          cartObject.push(shoppItem);
-          console.log("no estaba el producto")
-        }
-        index += 1;
-      });
 
-      localStorage.setItem(cartId || "", JSON.stringify(cartObject));
+          else if (index == (cartObject.items.length - 1)) {
+            let shoppItem =
+            {
+            "productId":[this.productId],
+            "quantity": 1
+            }
+            cartObject.shoppingCartItemCount += 1;
+
+            cartObject.items.push(shoppItem);
+            console.log("no estaba el producto")
+            localStorage.setItem(cartId || "", JSON.stringify(cartObject));
+          }
+          index += 1;
+        });
+      }
     }
 
     else {
       console.log("creo el primer item en session storage")
-      let cartObject = [];
+      let cartObject = {items:[{}], shoppingCartItemCount: 1};
+      let items = [];
       let item =
         {
           ["productId"]:[this.productId],
           "quantity": 1
         }
-      cartObject.push(item);
-      localStorage.setItem(cartId || "", JSON.stringify(cartObject));
-      //window.location.reload();
-      //this.addToCart(product);
-      }
+      cartObject.items.push(item);
 
+      localStorage.setItem(cartId || "", JSON.stringify(cartObject));
+      cart = localStorage.getItem(cartId || "");
+    }
   }
+
 
 }

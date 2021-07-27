@@ -16,11 +16,7 @@ export class ProductCardComponent {
 
   constructor(private cartService: ShoppingCartService) { }
 
-  addToCart() {
-    this.cartService.addToCart(this.product);
-  }
-
-  updateItemQuantity(product: any, change: number) {
+   updateItemQuantity(product: any, change: number) {
     this.cartService.updateItemQuantity(product, change);
   }
 
@@ -28,12 +24,13 @@ export class ProductCardComponent {
     let cart = this.cartService.getCart();
     let result = 0;
     if (cart) {
-      cart.forEach((item: any) => {
-        if (item.productId == this.product.key) {
-          console.log("entra: ", item.quantity);
-          result = item.quantity;
-        }
-      });
+      if (cart.items) {
+        cart.items.forEach((item: any) => {
+          if (item.productId == this.product.key) {
+            result = item.quantity;
+          }
+        });
+      }
     }
 
     return result;
