@@ -22,7 +22,8 @@ export class MatNavbarComponent implements OnInit{
 
   getTotalItems() {
     let cart = this.shoppingCartService.getCart();
-    return cart.shoppingCartItemCount;
+    if (cart) return cart.shoppingCartItemCount;
+    return 0;
   }
 
   ngOnInit() {

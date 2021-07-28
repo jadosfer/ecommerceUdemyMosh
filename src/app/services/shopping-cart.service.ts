@@ -10,7 +10,6 @@ import { ShoppingCart } from '../models/shopping-cart';
 })
 export class ShoppingCartService {
 
-  productId: string;
   cart: any;
 
   constructor(private db: AngularFireDatabase) { }
@@ -19,7 +18,6 @@ export class ShoppingCartService {
     let result = this.db.list('/shopping-carts').push({
       dateCreated: new Date().getTime()
     })
-    console.log(result);
     return result;
   }
 
@@ -43,68 +41,56 @@ export class ShoppingCartService {
     let result = await this.create();
     if (result.key) {
       localStorage.setItem('cartId', result.key);
+      localStorage.setItem(result.key, JSON.stringify({items:[], shoppingCartItemCount: 0}));
       return result.key;
     }
-
     return cartId;
+  }
+
+  getCartFromLS(cartId: string) {
+    return JSON.parse(localStorage.getItem(cartId) || "");
   }
 
   async updateItemQuantity(product:any, change: number){
     let cartId = await this.getOrCreateCartId();
-    this.productId = product.key;
-    this.cart = {items:[], shoppingCartItemCount: 0};
-    console.log(this.cart);
 
-    let cart = localStorage.getItem(cartId || "");
-    this.cart = cart;
+    if(!cartId) return
+    let cartObject = this.getCartFromLS(cartId);
 
-    if (cart) {
-      let cartObject = JSON.parse(cart);
-      let index=0;
-      if (cartObject.items) {
+    if (cartObject.items.length != 0) {
 
-        cartObject.items.forEach((item: any) => {
+      for (let i=0;i<cartObject.items.length;i++) {
+        if (cartObject.items[i].productId == product.key) {
+          cartObject.items[i].quantity += change;
+          if (cartObject.items[i].quantity == 0) cartObject.items.splice(i, 1) //borra item
+          cartObject.shoppingCartItemCount += change;
+        }
 
-          if (item.productId == this.productId) {
-            cartObject.items[index].quantity += change;
-            cartObject.shoppingCartItemCount += change;
-
-            localStorage.setItem(cartId || "", JSON.stringify(cartObject));
-            return
-          }
-
-          else if (index == (cartObject.items.length - 1)) {
-            let shoppItem =
-            {
-            "productId":[this.productId],
+        //"no estaba el producto => creo nuevo item"
+        else if (i == (cartObject.items.length - 1)) {
+          let shoppItem =
+          {
+            "productId":[product.key],
             "quantity": 1
-            }
-            cartObject.shoppingCartItemCount += 1;
-
-            cartObject.items.push(shoppItem);
-            console.log("no estaba el producto")
-            localStorage.setItem(cartId || "", JSON.stringify(cartObject));
           }
-          index += 1;
-        });
+          cartObject.shoppingCartItemCount += 1;
+          cartObject.items.push(shoppItem);
+          break;
+        }
       }
     }
 
+    //"creo el primer item en session storage"
     else {
-      console.log("creo el primer item en session storage")
-      let cartObject = {items:[{}], shoppingCartItemCount: 1};
-      let items = [];
       let item =
         {
-          ["productId"]:[this.productId],
+          ["productId"]:[product.key],
           "quantity": 1
         }
-      cartObject.items.push(item);
-
-      localStorage.setItem(cartId || "", JSON.stringify(cartObject));
-      cart = localStorage.getItem(cartId || "");
+      cartObject.items[0] = item;
+      cartObject.shoppingCartItemCount = 1;
     }
+
+    localStorage.setItem(cartId, JSON.stringify(cartObject));
   }
-
-
 }
