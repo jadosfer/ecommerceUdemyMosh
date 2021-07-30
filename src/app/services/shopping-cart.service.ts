@@ -67,11 +67,13 @@ export class ShoppingCartService {
         }
 
         //"no estaba el producto => creo nuevo item"
-        else if (i == (cartObject.items.length - 1)) {
+        else if (i == (cartObject.items.length - 1) && change == 1) {
           let shoppItem =
           {
             "productId":[product.key],
-            "quantity": 1
+            "quantity": 1,
+            "title": product.payload.val().title,
+            "price": product.payload.val().price
           }
           cartObject.shoppingCartItemCount += 1;
           cartObject.items.push(shoppItem);
@@ -81,11 +83,13 @@ export class ShoppingCartService {
     }
 
     //"creo el primer item en session storage"
-    else {
+    else if (change == 1){
       let item =
         {
           ["productId"]:[product.key],
-          "quantity": 1
+          "quantity": 1,
+          "title": product.payload.val().title,
+          "price": product.payload.val().price
         }
       cartObject.items[0] = item;
       cartObject.shoppingCartItemCount = 1;

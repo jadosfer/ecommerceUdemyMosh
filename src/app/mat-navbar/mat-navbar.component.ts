@@ -10,7 +10,6 @@ import { AuthService } from '../services/auth.service';
 })
 export class MatNavbarComponent implements OnInit{
 
-  shoppingCartItemCount: number = 0;
   appUser: AppUser;
 
   constructor(private auth: AuthService, private shoppingCartService: ShoppingCartService) {

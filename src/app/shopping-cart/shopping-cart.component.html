@@ -2,23 +2,30 @@
   <h1>Shopping Cart</h1>
   <ng-container *ngIf="this.cart">
     <p>
-      You have {{this.cart.shoppingCartItemCount}} items in your cart.
+      You have {{getTotalItems()}} items in your cart.
     </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>---</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of cart.items">
-          <td>{{item}}</td>
-        </tr>
 
-      </tbody>
-    </table>
   </ng-container>
+  <table *ngIf="cart.shoppingCartItemCount !=0" matSort (matSortChange)="sortData($event)">
+    <tr>
+      <th mat-sort-header="title">Product</th>
+      <th mat-sort-header="quantity">Quantity</th>
+      <th mat-sort-header="unitPrice">Unit Price</th>
+      <th mat-sort-header="totalPrice">Total Price</th>
+    </tr>
+
+    <tr *ngFor="let item of sortedData">
+      <td>{{item.title}}&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>{{getQuantity(item)}}</td>
+      <td>${{item.price}}</td>
+      <td>${{item.price*getQuantity(item)}}</td>
+      <button class="left-btn" (click)="updateItemQuantity(this.item.productId, -1)" mat-raised-button color="basic">-</button>
+      <button class="left-btn" (click)="updateItemQuantity(this.item.productId, 1)" mat-raised-button color="basic">+</button>
+    </tr>
+    <tr>
+      <th mat-sort-header="title">TOTAL</th>
+      <th mat-sort-header="title">${{getTotal()}}</th>
+    </tr>
+  </table>
 </div>
 
