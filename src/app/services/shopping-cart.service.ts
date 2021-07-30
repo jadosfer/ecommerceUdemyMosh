@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import 'rxjs/add/operator/take';
 import { ShoppingCart } from '../models/shopping-cart';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 
 @Injectable({
@@ -61,13 +62,17 @@ export class ShoppingCartService {
 
       for (let i=0;i<cartObject.items.length;i++) {
         if (cartObject.items[i].productId == product.key) {
+          console.log("entró");
           cartObject.items[i].quantity += change;
           if (cartObject.items[i].quantity == 0) cartObject.items.splice(i, 1) //borra item
+          else {}
           cartObject.shoppingCartItemCount += change;
+          break;
         }
 
         //"no estaba el producto => creo nuevo item"
         else if (i == (cartObject.items.length - 1) && change == 1) {
+          console.log("no estaria el prod");
           let shoppItem =
           {
             "productId":[product.key],
